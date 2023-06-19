@@ -82,12 +82,12 @@ updateUser.addEventListener("click", function(event)
         {
             make : document.getElementById("make").value,
             model : document.getElementById("model").value,
-            carYear : document.getElementById("carYear").value,
-            platNumber : document.getElementById("platNumber").value
+            year : document.getElementById("carYear").value,
+            platNo : document.getElementById("platNumber").value
         };
 
 // Call the endpoint with the license number and the new data
-fetch('/UpdateUserByLicense/' + license, {
+fetch('/UpdateUserByLicense', {
   method: 'PUT', // specify the HTTP method
   headers: {
     'Content-Type': 'application/json' // specify the content type
@@ -99,6 +99,7 @@ fetch('/UpdateUserByLicense/' + license, {
     if (response.ok) {
       // Display a success message
       alert('User updated successfully');
+      clearForm();
     } else {
       // Throw an error
       throw new Error('User not found or no changes made');
@@ -215,4 +216,5 @@ function clearForm()
     document.getElementById("model").value = "";
     document.getElementById("carYear").value = "";
     document.getElementById("platNumber").value = "";
+    document.getElementById("licenseNo").value = "";
 }

@@ -102,22 +102,28 @@ app.get('/GetUserByLicense/:license', async function (req, res) {
     }
 });
 
-app.put('/UpdateUserByLicense/:license',  function (req, res) {
+app.put('/UpdateUserByLicense',  async function (req, res) {
     try {
-        // Get the license number and the new data from the request
-        let license = req.params.license;
+
         let newData = req.body;
 
-        // Update the user that matches the license number
-        let result =  User.updateOne({ licenseNo: license }, newData);
+        // find the user that matches the license number
+        let result =  await User.findOne({ licenseNo: newData.license });
 
-        // Check if the update was successful
-        if (result.nModified > 0) {
-            // Send a success message
-            res.send('User updated successfully');
-        } else {
-            // Send a 404 not found error
-            res.status(404).send('User not found or no changes made');
+        if(result)
+        {
+            await User.updateOne({ licenseNo: newData.license }, newData);
+
+            result.car_details.make = newData.car_details.make;
+            result.car_details.model = newData.car_details.model;
+            result.car_details.year = newData.car_details.year;
+            result.car_details.platNo = newData.car_details.platNo;     
+            await result.save();
+            res.status(200).send('User updated successfully');
+        }
+        else
+        {
+            res.status(404).send('User not found');
         }
     } catch (err) {
         res.status(500).send(err);

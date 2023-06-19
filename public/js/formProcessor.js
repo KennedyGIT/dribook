@@ -62,8 +62,6 @@ submit.addEventListener("click", function(event)
 })
 
 
-
-
 function clearForm()
 {
     document.getElementById("firstName").value = "";
