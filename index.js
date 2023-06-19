@@ -112,8 +112,6 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
 
         if(result)
         {
-            await User.updateOne({ licenseNo: newData.license }, newData);
-
             result.car_details.make = newData.car_details.make;
             result.car_details.model = newData.car_details.model;
             result.car_details.year = newData.car_details.year;
