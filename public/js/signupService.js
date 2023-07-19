@@ -12,7 +12,7 @@ document.getElementById("signup").addEventListener("click", function(event)
         {
            userName : document.getElementById("signupusername").value.toLowerCase(),
            emailAddress : document.getElementById("emailAddress").value,
-           usertype : document.getElementById("usertype").value,
+           userType : document.getElementById("usertype").value,
            password : document.getElementById("signuppassword").value,
            usertype : document.getElementById("usertype").value
         };
