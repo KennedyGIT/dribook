@@ -14,6 +14,7 @@ document.getElementById("signup").addEventListener("click", function(event)
            emailAddress : document.getElementById("emailAddress").value,
            usertype : document.getElementById("usertype").value,
            password : document.getElementById("signuppassword").value,
+           usertype : document.getElementById("usertype").value
         };
     
        
