@@ -1,19 +1,22 @@
-var userDetails = document.getElementById("userDetailsForm");
+var userDetails = document.getElementById("signupPopupForm");
 
 document.getElementById("signup").addEventListener("click", function(event)
 {
     event.preventDefault();
 
-    if(validateInputs())
+    if(validateSignUpInputs())
     {
-        var userDetailsData = new FormData(userDetails);
-        var jsonData = {};
-    
-        for(var formuserDetailsKeyPair of userDetailsData.entries())
+        
+
+        var jsonData = 
         {
-            if(jsonData[formuserDetailsKeyPair[0]] === "rpassword"){continue;}
-            jsonData[formuserDetailsKeyPair[0]] = formuserDetailsKeyPair[1];
-        }
+           userName : document.getElementById("signupusername").value.toLowerCase(),
+           emailAddress : document.getElementById("emailAddress").value,
+           usertype : document.getElementById("usertype").value,
+           password : document.getElementById("signuppassword").value,
+        };
+    
+       
   
  
     fetch("/SignUp", {
@@ -54,20 +57,20 @@ document.getElementById("signup").addEventListener("click", function(event)
 
 function clearForm()
 {
-    document.getElementById("username").value = "";
+    document.getElementById("signupusername").value = "";
     document.getElementById("emailAddress").value = "";
     document.getElementById("usertype").value = "";
     document.getElementById("usertype").value = "";
-    document.getElementById("password").value = "";
+    document.getElementById("signuppassword").value = "";
     document.getElementById("rpassword").value = "";
 }
 
-function validateInputs() {
+function validateSignUpInputs() {
 
-    const username = document.getElementById("username");
+    const username = document.getElementById("signupusername");
     const emailAddress = document.getElementById("emailAddress");
     const usertype = document.getElementById("usertype");
-    const password = document.getElementById("password");
+    const password = document.getElementById("signuppassword");
     const rpassword = document.getElementById("rpassword");
     
     console.log("The usertype : " + usertype.value);

@@ -1,7 +1,7 @@
 const User = require('../models/user');
-const path = require('path')
-const key =  Buffer.from ([42, 17, 93, 121, 255, 0, 13, 37, 86, 123, 222, 99, 44, 11, 77, 88, 101, 202, 147, 64, 12, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99]);
-const iv = Buffer.from ([-97, 12, 86, -42, -75, 101, -8, 63, -39, 90, -6, 11, -66, -120, 44, 55]);
+const path = require('path');
+const crypto = require('crypto');
+
 
 module.exports = (req,res) => {
     req.body.firstName = "";
@@ -45,7 +45,7 @@ module.exports = (req,res) => {
             }
             catch(error)
             {
-                let failedResponse = { code : "001", message : error.message};
+                let failedResponse = JSON.stringify({ code : "001", message : error.message});
 
                 res.status(500).send(failedResponse);
             }
@@ -57,6 +57,8 @@ module.exports = (req,res) => {
 
 function encryptData(data)
 {
+    const key =  Buffer.from ([42, 17, 93, 121, 255, 0, 13, 37, 86, 123, 222, 99, 44, 11, 77, 88, 101, 202, 147, 64, 12, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99]);
+    const iv = Buffer.from ([-97, 12, 86, -42, -75, 101, -8, 63, -39, 90, -6, 11, -66, -120, 44, 55]);
     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
     let encrypted = cipher.update(data);
     encrypted = Buffer.concat([encrypted, cipher.final()]);
