@@ -1,5 +1,5 @@
 var searchUser  = document.getElementById("searchbtn");
-var updateUser = document.getElementById("submitbtn");
+var updateUser = document.getElementById("updatebooking");
 
 searchUser.addEventListener("click", function(event)
 {

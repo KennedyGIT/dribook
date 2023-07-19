@@ -8,9 +8,17 @@ const UserSchema = mongoose.Schema
 
     licenseNo: String,
 
+    userName : String,
+
     age: Number,
 
+    email: String,
+
     dob: String,
+
+    password: String,
+
+    userType : String,
 
     car_details:
     {

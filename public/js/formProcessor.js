@@ -1,6 +1,7 @@
 var personalDetails = document.getElementById("personalDetailsForm");
 var carDetails = document.getElementById("carForm");
 var submit  = document.getElementById("submit-btn");
+var update = document.getElementById("updatebooking");
 
 
 submit.addEventListener("click", function(event)
@@ -41,7 +42,65 @@ submit.addEventListener("click", function(event)
             return response.json();
         } else {
             // throw an error with the status text
-            throw new Error("License No. already exists");
+            throw new Error(response.error);
+        }
+        })
+        .then(data => {
+        // handle the data from the server
+        console.log(data);
+        // display a success message
+        alert(data.message);
+        clearForm();
+        })
+        .catch(error => {
+        // handle any errors
+        console.error(error);
+        // display an error message
+        alert(error.message);
+        clearForm();
+        });
+    }
+})
+
+submit.addEventListener("click", function(event)
+{
+    event.preventDefault();
+
+    if(validateInputs())
+    {
+        var personalDetailsData = new FormData(personalDetails);
+        var carDetailsData = new FormData(carDetails);
+        var jsonData = {};
+    
+        for(var formpersonalDetailsKeyPair of personalDetailsData.entries())
+        {
+            jsonData[formpersonalDetailsKeyPair[0]] = formpersonalDetailsKeyPair[1];
+        }
+
+        jsonData.car_details = {};
+
+        for(var formDetailKeyPair of carDetailsData.entries())
+        {   
+            jsonData.car_details[formDetailKeyPair[0]] = formDetailKeyPair[1];
+        }
+
+  
+ 
+    fetch("/UpdateUserByLicense", {
+        method: "PUT",
+        body: JSON.stringify(jsonData),
+        headers: {
+        "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+        // check if the response is ok
+        if (response.ok) {
+            // parse the response as JSON
+            return response.json();
+        } else {
+            // throw an error with the status text
+            throw new Error(response.error);
         }
         })
         .then(data => {
