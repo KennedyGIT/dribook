@@ -127,11 +127,8 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
     try {
 
         let newData = req.body;
-
-        let encryptedLicense = encryptData(newData.license);
-
         // find the user that matches the license number
-        let result =  await User.findOne({ licenseNo: encryptedLicense.encryptedData });
+        let result =  await User.findOne({userName : req.session.user.userName});
 
         if(result)
         {
@@ -140,14 +137,25 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
             result.car_details.year = newData.car_details.year;
             result.car_details.platNo = newData.car_details.platNo;     
             await result.save();
-            res.status(200).send('User updated successfully');
+
+            req.session.user.car_details.make = newData.car_details.make;
+            req.session.user.car_details.model = newData.car_details.model;
+            req.session.user.car_details.year = newData.car_details.year;
+            req.session.user.car_details.platNo = newData.car_details.platNo;
+
+            console.log("New Request Session: "+JSON.stringify(req.session.user));
+
+            let successfulResponse = { code : "001", message : "User updated successfully"};
+            res.status(200).send(JSON.stringify(successfulResponse));
         }
         else
         {
-            res.status(404).send('User not found');
+            let failedResponse = { code : "001", message : "User with license not found"};
+            res.status(404).send(JSON.stringify(failedResponse));
         }
     } catch (err) {
-        res.status(500).send(err);
+        let failedResponse = { code : "001", message : err.message};
+            res.status(500).send(JSON.stringify(failedResponse));
     }
 });
 

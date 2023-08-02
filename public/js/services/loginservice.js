@@ -1,4 +1,6 @@
-var userDetails = document.getElementById("loginForm");
+document.addEventListener("DOMContentLoaded", function() 
+{
+  var userDetails = document.getElementById("loginForm");
 
 document.getElementById("login").addEventListener("click", function(event)
 {
@@ -90,4 +92,7 @@ function validateInputs() {
       return false
     }
   }
+})
+
+
     

@@ -1,4 +1,6 @@
-var userDetails = document.getElementById("signupPopupForm");
+document.addEventListener("DOMContentLoaded", function() 
+{
+  var userDetails = document.getElementById("signupPopupForm");
 
 document.getElementById("signup").addEventListener("click", function(event)
 {
@@ -43,7 +45,7 @@ document.getElementById("signup").addEventListener("click", function(event)
         console.log(data);
         // display a success message
         alert(data.message);
-        clearForm();
+        clearSignupForm();
         })
         .catch(error => {
         // handle any errors
@@ -56,7 +58,7 @@ document.getElementById("signup").addEventListener("click", function(event)
 })
 
 
-function clearForm()
+function clearSignupForm()
 {
     document.getElementById("signupusername").value = "";
     document.getElementById("emailAddress").value = "";
@@ -127,4 +129,8 @@ function validateSignUpInputs() {
       return false
     }
   }
+})
+
+
+
     

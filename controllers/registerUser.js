@@ -25,18 +25,20 @@ module.exports = (req, res) => {
                 user.car_details.platNo = newData.car_details.platNo;     
                 user.save();
 
-                let succesfulResponse = { code : "000", message : "User updated successfully"};
-                res.status(200).send(succesfulResponse);
+                let succesfulResponse = { code : "000", message : "booking created successfully"};
+                res.status(200).send(JSON.stringify(succesfulResponse));
             }
             else
             {
-                res.status(404).send('User not found');
+                let failedResponse = { code : "001", message : "User not found"};
+                res.status(404).send(JSON.stringify(failedResponse));
             }
         })
 
        
     } catch (err) {
-        res.status(500).send(err);
+        let failedResponse = { code : "001", message : err.message};
+        res.status(500).send(JSON.stringify(failedResponse));
     }
 };
 

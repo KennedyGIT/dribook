@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const path = require('path');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+const salt = "$2b$10$X9Z5f6Q3x7r6g0y8w0jQ1e";
 
 
 module.exports = (req,res) => {
@@ -11,7 +13,7 @@ module.exports = (req,res) => {
     req.body.dob = "";
     req.body.licenseNo = "";
     req.body.userName = req.body.userName.toLowerCase();
-    req.body.password = encryptData(req.body.password).encryptedData;
+    req.body.password = bcrypt.hashSync(req.body.password, salt);
 
     User.findOne({userName: req.body.userName}).then(user => {
         if(user)

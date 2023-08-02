@@ -1,9 +1,13 @@
 
 const path = require('path');
 const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const key =  Buffer.from ([42, 17, 93, 121, 255, 0, 13, 37, 86, 123, 222, 99, 44, 11, 77, 88, 101, 202, 147, 64, 12, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99]);
 const iv = Buffer.from ([-97, 12, 86, -42, -75, 101, -8, 63, -39, 90, -6, 11, -66, -120, 44, 55]);
+const salt = "$2b$10$X9Z5f6Q3x7r6g0y8w0jQ1e";
+
+//$2b$10$X9Z5f6Q3x7r6g0y8w0jQ1eAzx0arEXJxiCk6Ae6VqdDkgTwY9ftnW
 
 
 
@@ -21,9 +25,23 @@ module.exports = (req, res) => {
 			if (user) {
                 console.log("Retrieved User", user)
 
-                if(encryptData(req.body.password).encryptedData == user.password)
+                let password = bcrypt.hashSync(req.body.password, salt)
+
+                console.log("The Hashed Password is : "+ password)
+
+                if( password == user.password)
+                //if(req.body.password == user.password)
                 {
-                    user.licenseNo = decryptData(user.licenseNo);
+                    if(user.licenseNo == "")
+                    {
+                        user.licenseNo = "";
+                        
+                    }
+                    else
+                    {
+                        user.licenseNo = decryptData(user.licenseNo);
+                    }
+                    
                     req.session.user = user;
                     res.json({
                     success: true,
@@ -37,7 +55,7 @@ module.exports = (req, res) => {
                     
                     let failedResponse = { code : "001", message : "Invalid username or password"};
 
-                    res.status(500).send(failedResponse);
+                    res.status(400).send(failedResponse);
                 }
 			} else {
 				res.json({
