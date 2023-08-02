@@ -8,8 +8,10 @@ const { check, validationResult } = require('express-validator');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 var User = require('./models/user');
+var Appointment = require('./models/appointModel');
 
 const signUpUserController = require('./controllers/signupUser');
+const appointmentController = require('./controllers/appointment');
 const loginUserController = require('./controllers/login');
 const registerUserController = require('./controllers/registerUser');
 const redirectIfNotAuthenticatedMiddleware = require('./middleware/AuthorizationCheckMiddleware');
@@ -180,6 +182,8 @@ app.post('/Login', loginUserController);
 app.get('/Logout', logoutController);
 
 app.post('/SubmitBooking', registerUserController);
+
+app.post('/SetBookingDate', appointmentController);
 
 
 function encryptData(data)
