@@ -6,6 +6,8 @@ const User = require('../models/user');
 const key =  Buffer.from ([42, 17, 93, 121, 255, 0, 13, 37, 86, 123, 222, 99, 44, 11, 77, 88, 101, 202, 147, 64, 12, 9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99]);
 const iv = Buffer.from ([-97, 12, 86, -42, -75, 101, -8, 63, -39, 90, -6, 11, -66, -120, 44, 55]);
 const salt = "$2b$10$X9Z5f6Q3x7r6g0y8w0jQ1e";
+var driverUrl = "/";
+var adminUrl = "/appointment"
 
 //$2b$10$X9Z5f6Q3x7r6g0y8w0jQ1eAzx0arEXJxiCk6Ae6VqdDkgTwY9ftnW
 
@@ -27,10 +29,7 @@ module.exports = (req, res) => {
 
                 let password = bcrypt.hashSync(req.body.password, salt)
 
-                console.log("The Hashed Password is : "+ password)
-
-                if( password == user.password)
-                //if(req.body.password == user.password)
+                if((password == user.password) && (user.userType == "driver"))
                 {
                     if(user.licenseNo == "")
                     {
@@ -43,22 +42,28 @@ module.exports = (req, res) => {
                     }
                     
                     req.session.user = user;
-                    res.json({
-                    success: true,
-                    redirectUrl: "/",
-                    });
-
+                    res.status(200).json({redirectUrl : "/"});
+                }
+                else if((password == user.password) && (user.userType == "Admin"))
+                { 
+                    req.session.user = user;
+                    res.status(200).json({success : true, redirectUrl : "/appointment"});
+                }
+                else if((password == user.password) && (user.userType == "Driver"))
+                { 
+                    req.session.user = user;
+                    res.status(200).json({success : true, redirectUrl : "/"});
                 }
                 else
                 {
                     req.session.destroy();
                     
-                    let failedResponse = { code : "001", message : "Invalid username or password"};
+                    let failedResponse = { success : false,  redirectUrl : "/login", code : "001", message : "Invalid username or password"};
 
                     res.status(400).send(failedResponse);
                 }
 			} else {
-				res.json({
+				res.status(400).json({
                     success: false,
                     message: "Invalid username or password",
                 });

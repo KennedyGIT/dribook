@@ -16,6 +16,9 @@ const redirectIfNotAuthenticatedMiddleware = require('./middleware/Authorization
 const redirectIfNotDriver = require('./middleware/UserTypeCheckMiddleware');
 const redirectIfDriverDataempty = require('./middleware/NewUserMiddleware');
 const logoutController = require('./controllers/logout');
+const adminCheckMiddleware = require('./middleware/AdminTypeCheckMiddleware');
+const driverMiddleware = require('./middleware/DriverCheckMiddleware');
+
 
 const dbURI = "mongodb+srv://IamKennedee:e4dd99ae701@dribook.tp24oco.mongodb.net/dribook";
 const app = new express();
@@ -83,8 +86,8 @@ app.get('/login', (req, res) => {
 
 app.get('/G', 
 redirectIfNotAuthenticatedMiddleware,
-redirectIfNotDriver,
 redirectIfDriverDataempty,
+driverMiddleware,
 (req, res) => {
    res.render('g',
    {
@@ -92,13 +95,22 @@ redirectIfDriverDataempty,
    });
 });
 
+app.get('/Appointment', 
+redirectIfNotAuthenticatedMiddleware,
+adminCheckMiddleware,
+(req, res) => {
+   res.render('appointment',
+   {
+      user : req.session.user,
+   });
+});
+
 app.get('/G2', 
 redirectIfNotAuthenticatedMiddleware,
-redirectIfNotDriver,
+driverMiddleware,
 (req, res) => {
     res.render('g2');
 });
-
 
 app.get('/GetUserByLicense', async function (req, res) {
     try {
@@ -122,6 +134,8 @@ app.get('/GetUserByLicense', async function (req, res) {
         res.status(500).send(err);
     }
 });
+
+
 
 app.put('/UpdateUserByLicense',  async function (req, res) {
     try {

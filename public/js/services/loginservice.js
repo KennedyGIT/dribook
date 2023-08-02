@@ -25,15 +25,17 @@ document.getElementById("login").addEventListener("click", function(event)
             },
           })
             .then((response) => {
-              // check if the response is a redirect
-              if (response.ok) {
-                // get the redirect URL from the response
-                const redirectUrl = "/";
-                // navigate to the new page
-                window.location.href = redirectUrl;
-              } else {
-                alert("Login not successul");
-                window.location.href ="/login";
+
+              return response.json();
+            })
+            .then((data)=> 
+            {
+              if(data.success)
+              {
+                window.location.href = data.redirectUrl;
+              }else
+              {
+                window.location.href = data.redirectUrl;
               }
             })
             .catch((error) => {
