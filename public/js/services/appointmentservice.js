@@ -30,6 +30,7 @@ function createAppointment()
 
        bookingJson.testDate = document.getElementById("bookdate").value;
        bookingJson.testTime = document.getElementById("testTime").value;
+       bookingJson.isTimeSlotAvailable = true;
 
   
  

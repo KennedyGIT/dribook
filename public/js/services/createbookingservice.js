@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
       {
         alert(data.message); 
         clearG2Form();
+        window.location.href = "/";
       }) 
       .catch((error) => 
       { 

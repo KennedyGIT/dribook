@@ -20,6 +20,8 @@ const UserSchema = mongoose.Schema
 
     userType : String,
 
+    appointmentId : String,
+
     car_details:
     {
         make: String,

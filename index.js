@@ -137,21 +137,43 @@ app.get('/GetUserByLicense', async function (req, res) {
     }
 });
 
+app.get('/time-slots', async (req, res) => {
+    try {
+      const selectedDate = req.query.date;
+      if (!selectedDate) {
+        return res.status(400).json({ error: 'Selected date is missing in the request query' });
+      }
+  
+      // Retrieve data where isTimeSlotAvailable is true and testDate is greater than or equal to the selected date
+      const timeSlots = await Appointment.find({
+        isTimeSlotAvailable: true,
+        testDate:  selectedDate ,
+      }).select('testDate testTime isTimeSlotAvailable');
+  
+      res.json(timeSlots);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
-
+app.get('/Logout', logoutController);
+  
 app.put('/UpdateUserByLicense',  async function (req, res) {
     try {
 
         let newData = req.body;
         // find the user that matches the license number
         let result =  await User.findOne({userName : req.session.user.userName});
+        let appointment = await Appointment.findOne({_id : req.body.appointmentId})
 
         if(result)
         {
             result.car_details.make = newData.car_details.make;
             result.car_details.model = newData.car_details.model;
             result.car_details.year = newData.car_details.year;
-            result.car_details.platNo = newData.car_details.platNo;     
+            result.car_details.platNo = newData.car_details.platNo;
+            result.appointmentId  = newData.appointmentId;  
             await result.save();
 
             req.session.user.car_details.make = newData.car_details.make;
@@ -159,10 +181,21 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
             req.session.user.car_details.year = newData.car_details.year;
             req.session.user.car_details.platNo = newData.car_details.platNo;
 
-            console.log("New Request Session: "+JSON.stringify(req.session.user));
+            if(appointment)
+            {
+                appointment.isTimeSlotAvailable = false;
+                await appointment.save();
 
-            let successfulResponse = { code : "001", message : "User updated successfully"};
-            res.status(200).send(JSON.stringify(successfulResponse));
+                console.log("New Request Session: "+JSON.stringify(req.session.user));
+
+                let successfulResponse = { code : "001", message : "Booking updated successfully"};
+                res.status(200).send(JSON.stringify(successfulResponse));
+            }
+            else
+            {
+                let failedResponse = { code : "001", message : "Appointment slot not found"};
+                res.status(404).send(JSON.stringify(failedResponse));
+            }       
         }
         else
         {
@@ -178,8 +211,6 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
 app.post('/Signup', signUpUserController);
 
 app.post('/Login', loginUserController);
-
-app.get('/Logout', logoutController);
 
 app.post('/SubmitBooking', registerUserController);
 

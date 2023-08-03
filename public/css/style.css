@@ -9154,6 +9154,10 @@ body {
     -moz-border-radius: 5px;
     border-radius: 5px; }
 
+    .selected-row {
+      background-color: #307CF3;
+    }
+
 /*====== single-content-sidebar =====*/
 .single-content-sidebar {
   margin-top: -115px;
