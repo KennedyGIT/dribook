@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
   
-
   function clearG2Form()
   {
       document.getElementById("firstName").value = "";

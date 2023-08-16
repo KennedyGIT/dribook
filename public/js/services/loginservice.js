@@ -61,12 +61,14 @@ function validateInputs() {
 
     const username = document.getElementById("username");
     const password = document.getElementById("password");
+    const usertype = document.getElementById("usertype");
     
     
     console.log("The usertype : " + usertype.value);
     // get the values of the input fields
     const usernameValue = username.value;
     const passwordValue = password.value;
+    const usertypeValue = usertype.value;
     
     
   
@@ -82,6 +84,11 @@ function validateInputs() {
     if (passwordValue === '') {
       
       isValid = false;
+    }
+
+    if((usertypeValue === '') || usertypeValue === 'Select User Type')
+    {
+      isValid = false;   
     }
     
     // enable or disable the submit button based on the validation result

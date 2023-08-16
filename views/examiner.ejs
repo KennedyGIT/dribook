@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!--Head Start Section-->
+  <%-include('layouts/head'); -%>
+   <!--Head End Section-->
+
+
+  <body>
+    <!-- start cssload-loader -->
+    <div class="preloader" id="preloader">
+      <div class="loader">
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle
+            class="path"
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            stroke-width="5"
+          ></circle>
+        </svg>
+      </div>
+    </div>
+    <!-- end cssload-loader -->
+
+    <!-- ================================
+            START HEADER AREA
+================================= -->
+  <%-include('layouts/appointmentheader'); -%>
+    <!-- ================================
+         END HEADER AREA
+================================= -->
+
+
+ <!-- ================================
+       START BREADCRUMB AREA
+================================= -->
+<section class="breadcrumb-area bread-bg-8">
+    <div class="breadcrumb-wrap">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="breadcrumb-content">
+                        <div class="section-heading">
+                            <h2 class="sec__title text-white">Examinations</h2>
+                        </div>
+                    </div><!-- end breadcrumb-content -->
+                </div><!-- end col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="breadcrumb-list text-right">
+                        <ul class="list-items">
+                            <li>Test Booking Times</li>
+                        </ul>
+                    </div><!-- end breadcrumb-list -->
+                </div><!-- end col-lg-6 -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end breadcrumb-wrap -->
+    <div class="bread-svg-box">
+        <svg class="bread-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><polygon points="100 0 50 10 0 0 0 10 100 10"></polygon></svg>
+    </div><!-- end bread-svg -->
+</section>
+ <!-- ================================
+       END BREADCRUMB AREA
+================================= -->
+
+<!-- ================================
+       START BOOKING SLOT AREA
+================================= -->
+
+ <!-- ================================
+       END BOOKING SLOT AREA
+================================= -->
+
+
+
+  
+<div class="section-block"></div>
+
+   
+  
+
+    <!-- ================================
+       START FOOTER AREA
+================================= -->
+    <%-include('layouts/footer'); -%>
+    <!-- end footer-area -->
+    <!-- ================================
+       END FOOTER AREA
+================================= -->
+
+    <!-- start back-to-top -->
+    <div id="back-to-top">
+      <i class="la la-angle-up" title="Go top"></i>
+    </div>
+    <!-- end back-to-top -->
+
+
+
+    <!-- Template JS Files -->
+    <%-include('layouts/scripts'); -%>
+    
+  </body>
+</html>

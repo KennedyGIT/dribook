@@ -63,11 +63,23 @@
                         <div class="contact-form-action">
                             <form method="post" id = loginForm>
                                 <div class="input-box">
+                                    
                                     <label class="label-text" id="labelwarning"></label>
+                                    <div class="form-group select-contain w-100 ">
+                                        <div class="dropdown bootstrap-select select-contain-select ">
+                                            <select class="select-contain-select" tabindex="-98" id="usertype" name="userType">
+                                                <option value="" selected>Select User Type</option>
+                                                <option value="Examiner">Examiner</option>
+                                                <option value="Driver">Driver</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <span class="la la-user form-icon"></span>
                                         <input class="form-control" type="text" name="username" id = "username" placeholder="Enter username">
                                     </div>
+                                    
                                     <div class="form-group">
                                         <span class="la la-lock form-icon"></span>
                                         <input class="form-control" type="password" name="password" id = "password" placeholder="password">

@@ -19,6 +19,7 @@ const redirectIfNotDriver = require('./middleware/UserTypeCheckMiddleware');
 const redirectIfDriverDataempty = require('./middleware/NewUserMiddleware');
 const logoutController = require('./controllers/logout');
 const adminCheckMiddleware = require('./middleware/AdminTypeCheckMiddleware');
+const examinerCheckMiddleware = require('./middleware/ExaminerTypeCheckMiddleware');
 const driverMiddleware = require('./middleware/DriverCheckMiddleware');
 
 
@@ -107,6 +108,16 @@ adminCheckMiddleware,
    });
 });
 
+app.get('/examination', 
+redirectIfNotAuthenticatedMiddleware,
+examinerCheckMiddleware,
+(req, res) => {
+   res.render('examiner',
+   {
+      user : req.session.user,
+   });
+});
+
 app.get('/G2', 
 redirectIfNotAuthenticatedMiddleware,
 driverMiddleware,
@@ -169,6 +180,11 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
 
         if(result)
         {
+            result.firstName = newData.firstName;
+            result.lastName = newData.lastName;
+            result.age = newData.age;
+            result.dob = newData.dob;
+            result.licenseNo = encryptData(newData.licenseNo).encryptedData;
             result.car_details.make = newData.car_details.make;
             result.car_details.model = newData.car_details.model;
             result.car_details.year = newData.car_details.year;
