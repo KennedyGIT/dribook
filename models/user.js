@@ -22,6 +22,14 @@ const UserSchema = mongoose.Schema
 
     appointmentId : String,
 
+    testType : String, // G or G2
+
+    examStatus : String,
+
+    comment : String,
+
+    examType : String,
+
     car_details:
     {
         make: String,

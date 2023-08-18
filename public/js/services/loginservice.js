@@ -25,8 +25,14 @@ document.getElementById("login").addEventListener("click", function(event)
             },
           })
             .then((response) => {
-
-              return response.json();
+              if(response.ok)
+              {
+                return response.json();
+              }
+              else
+              {
+                window.location.href = "/"
+              }     
             })
             .then((data)=> 
             {
@@ -61,7 +67,7 @@ function validateInputs() {
 
     const username = document.getElementById("username");
     const password = document.getElementById("password");
-    const usertype = document.getElementById("usertype");
+    const usertype = document.getElementById("loginusertype");
     
     
     console.log("The usertype : " + usertype.value);

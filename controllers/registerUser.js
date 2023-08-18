@@ -18,6 +18,7 @@ module.exports = (req, res) => {
                 user.lastName = newData.lastName;
                 user.age = newData.age;
                 user.dob = newData.dob;
+                
                 user.licenseNo = encryptData(newData.licenseNo).encryptedData;
                 user.car_details.make = newData.car_details.make;
                 user.car_details.model = newData.car_details.model;

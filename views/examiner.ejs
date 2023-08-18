@@ -49,7 +49,7 @@
                 <div class="col-lg-6">
                     <div class="breadcrumb-list text-right">
                         <ul class="list-items">
-                            <li>Test Booking Times</li>
+                            <li>Exam Bookings</li>
                         </ul>
                     </div><!-- end breadcrumb-list -->
                 </div><!-- end col-lg-6 -->
@@ -64,18 +64,79 @@
        END BREADCRUMB AREA
 ================================= -->
 
+
 <!-- ================================
-       START BOOKING SLOT AREA
+    START CARD AREA
 ================================= -->
-
- <!-- ================================
-       END BOOKING SLOT AREA
+<section class="card-area section--padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="filter-wrap margin-bottom-30px">
+                    <div class="filter-bar d-flex align-items-center justify-content-between">
+                        <div class="filter-bar-filter d-flex flex-wrap align-items-center">
+                            <div class="filter-option">
+                                <h3 class="title font-size-16">Filter by:</h3>
+                            </div>
+                            <div class="filter-option">
+                                <div class="dropdown dropdown-contain">
+                                    <a class="dropdown-toggle dropdown-btn dropdown--btn" href="#" role="button" data-toggle="dropdown">
+                                        Test Type
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-wrap">
+                                        <div class="dropdown-item">
+                                            <div class="checkbox-wrap">
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" value="G" id="catChb1">
+                                                    <label for="catChb1">G</label>
+                                                </div>
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" value="G2" id="catChb2">
+                                                    <label for="catChb2">G2</label>
+                                                </div>
+                                            </div>
+                                        </div><!-- end dropdown-item -->
+                                    </div><!-- end dropdown-menu -->
+                                </div><!-- end dropdown -->
+                            </div>
+                        </div><!-- end filter-bar-filter -->
+                    </div><!-- end filter-bar -->
+                </div><!-- end filter-wrap -->
+            </div><!-- end col-lg-12 -->
+        </div><!-- end row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="userListContainer">
+                    <% userList.forEach(user => { %>
+                        <div class="card-item car-card card-item-list">
+                          <div class="card-body">
+                            <div class="card-rating">
+                              <span class="badge text-white">Result</span>
+                              <span class="review__text"><%= user.examStatus || 'Unknown or Pending' %></span> <!-- Provide a default value if examStatus is null or undefined -->
+                            </div>
+                            <div class="card-price d-flex align-items-center justify-content-between">
+                              <p>
+                                <span class="price__num"><%= user.firstName %> <%= user.lastName %></span>
+                                <% if (user.examType) { %>
+                                  <span class="price__text"><strong>Test Type : </strong><%= user.examType %></span>
+                                  <span class="price__license"><strong>License Number : </strong><%= user.licenseNo %></span>
+                                <% } else { %>
+                                  <span class="price__text">N/A</span> <!-- Provide a default value if appointment fields are null or undefined -->
+                                <% } %>
+                              </p>
+                              <a href="/" class="btn-text" data-toggle="modal" data-target="#userdetailsform">See details<i class="la la-angle-right"></i></a>
+                            </div>
+                          </div>
+                        </div><!-- end card-item -->
+                      <% }); %>
+                  </div>
+            </div><!-- end col-lg-12 -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section><!-- end card-area -->
+<!-- ================================
+    END CARD AREA
 ================================= -->
-
-
-
-  
-<div class="section-block"></div>
 
    
   
@@ -94,6 +155,9 @@
       <i class="la la-angle-up" title="Go top"></i>
     </div>
     <!-- end back-to-top -->
+    <!-- end modal-shared -->
+    <%-include('layouts/userdetails'); -%>
+    <!-- end modal-popup -->
 
 
 

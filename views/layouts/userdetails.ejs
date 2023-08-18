@@ -1,7 +1,7 @@
 <div class="modal-popup">
     <div
       class="modal fade"
-      id="signupPopupForm"
+      id="userdetailsform"
       tabindex="-1"
       role="dialog"
       aria-hidden="true"
@@ -11,9 +11,8 @@
           <div class="modal-header">
             <div>
               <h5 class="modal-title title" id="exampleModalLongTitle">
-                Sign Up
               </h5>
-              <p class="font-size-14">Hello! Welcome Create a New Account</p>
+              <p class="font-size-14">Update User Details</p>
             </div>
             <button
               type="button"
@@ -28,43 +27,44 @@
             <div class="contact-form-action">
               <form id="userDetailsForm">
                 <div class="input-box">
-                  <label class="label-text">Username</label>
+                  <label class="label-text">Name</label>
                   <div class="form-group">
                     <span class="la la-user form-icon"></span>
                     <input
                       class="form-control"
                       type="text"
                       name="userName"
-                      id="signupusername"
-                      placeholder="Type your username"
+                      id="username"
+                      placeholder="Type your username" disabled
                     />
                   </div>
                 </div>
                 <!-- end input-box -->
-                <!-- input box-->
                 <div class="input-box">
-                  <label class="label-text">Email Address</label>
+                  <label class="label-text">License Number</label>
                   <div class="form-group">
-                    <span class="la la-envelope form-icon"></span>
+                    <span class="la la-lock form-icon"></span>
                     <input
                       class="form-control"
-                      type="email"
-                      name="email"
-                      id="emailAddress"
-                      placeholder="Type your email"
+                      type=""
+                      name="text"
+                      id="licenseno"
+                      disabled
+                      placeholder="Please leave a comment"
                     />
                   </div>
+                </div>
+                <!-- input box-->
                 </div>
                 <!-- end input box-->
                 <!-- input box-->
                 <div class="form-group select-contain w-100 ">
-                    <label class="label-text">User Type</label>
+                    <label class="label-text">Exam Results</label>
                     <div class="dropdown bootstrap-select select-contain-select ">
-                        <select class="select-contain-select" tabindex="-98" id="signupusertype" name="userType">
-                            <option value="" selected>Select User Type</option>
-                            <option value="Examiner">Examiner</option>
-                            <option value="Driver">Driver</option>
-                            <option value="Admin">Admin</option>
+                        <select class="select-contain-select" tabindex="-98" id="resultOptions" name="resultOptions">
+                            <option value="" selected>Select Result</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fail">Fail</option>
                         </select>
                     </div>
                 </div>
@@ -72,36 +72,23 @@
                 <!-- end input box-->
                 <!-- input-box -->
                 <div class="input-box">
-                  <label class="label-text">Password</label>
+                  <label class="label-text">Comment</label>
                   <div class="form-group">
                     <span class="la la-lock form-icon"></span>
                     <input
                       class="form-control"
-                      type="password"
-                      name="password"
-                      id="signuppassword"
-                      placeholder="Type password"
+                      type=""
+                      name="comment"
+                      id="comment"
+                      placeholder="Please leave a comment"
                     />
                   </div>
                 </div>
-                <!-- end input-box -->
-                <div class="input-box">
-                  <label class="label-text">Repeat Password</label>
-                  <div class="form-group">
-                    <span class="la la-lock form-icon"></span>
-                    <input
-                      class="form-control"
-                      type="password"
-                      name="rpassword"
-                      id="rpassword"
-                      placeholder="Type password again "
-                    />
-                  </div>
                 </div>
                 <!-- end input-box -->
                 <div class="btn-box pt-3 pb-4">
-                  <button id="signup" type="button" class="theme-btn w-100">
-                    Register Account
+                  <button id="updateUserdetails" type="button" class="theme-btn w-100">
+                    Update Driver Details
                   </button>
                 </div>
               </form>

@@ -34,6 +34,9 @@ module.exports = (req,res) => {
 
             let user = new User(userData);
 
+            user.examStatus = "No Booking"
+            user.examType = "";
+            user.comments = "";
             user.car_details.make = "";
             user.car_details.model = "";
             user.car_details.year = "";

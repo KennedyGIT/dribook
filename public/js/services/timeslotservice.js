@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var personalDetails = document.getElementById("personalDetailsForm");
   var carDetails = document.getElementById("carForm");
   var update = document.getElementById("updatebooking");
+  var testType = update.getAttribute("data-test-type");
   var selectedId = "";
 
   function populateTable(data) {
@@ -93,6 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
           {
               jsonData[formpersonalDetailsKeyPair[0]] = formpersonalDetailsKeyPair[1];
           }
+
+          jsonData.examType = testType;
+          jsonData.examStatus = "Awaiting Result"
+          jsonData.licenseNo = document.getElementById("license").value;
+          jsonData.firstName = document.getElementById("firstName").value;
+          jsonData.lastName = document.getElementById("lastName").value;
+          jsonData.dob = document.getElementById("dob").value;
+          jsonData.age = document.getElementById("age").value;
   
           jsonData.car_details = {};
   
@@ -100,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
           {   
               jsonData.car_details[formDetailKeyPair[0]] = formDetailKeyPair[1];
           }
+
+          
+
+
   
     
    

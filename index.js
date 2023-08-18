@@ -13,6 +13,7 @@ var Appointment = require('./models/appointModel');
 const signUpUserController = require('./controllers/signupUser');
 const appointmentController = require('./controllers/appointment');
 const loginUserController = require('./controllers/login');
+const userController = require('./controllers/examination'); // Import the userController module
 const registerUserController = require('./controllers/registerUser');
 const redirectIfNotAuthenticatedMiddleware = require('./middleware/AuthorizationCheckMiddleware');
 const redirectIfNotDriver = require('./middleware/UserTypeCheckMiddleware');
@@ -110,13 +111,19 @@ adminCheckMiddleware,
 
 app.get('/examination', 
 redirectIfNotAuthenticatedMiddleware,
-examinerCheckMiddleware,
+examinerCheckMiddleware, userController.getUsers,
 (req, res) => {
    res.render('examiner',
    {
       user : req.session.user,
    });
 });
+
+app.get('/filteredExamination', 
+redirectIfNotAuthenticatedMiddleware,
+examinerCheckMiddleware, userController.getFilteredUsers)
+
+
 
 app.get('/G2', 
 redirectIfNotAuthenticatedMiddleware,
@@ -166,7 +173,7 @@ app.get('/time-slots', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Internal server error' });
     }
-  });
+});
 
 app.get('/Logout', logoutController);
   
@@ -184,6 +191,9 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
             result.lastName = newData.lastName;
             result.age = newData.age;
             result.dob = newData.dob;
+            result.examStatus = newData.examStatus;
+            result.examType = newData.examType;
+            result.comment = "";
             result.licenseNo = encryptData(newData.licenseNo).encryptedData;
             result.car_details.make = newData.car_details.make;
             result.car_details.model = newData.car_details.model;
@@ -212,6 +222,32 @@ app.put('/UpdateUserByLicense',  async function (req, res) {
                 let failedResponse = { code : "001", message : "Appointment slot not found"};
                 res.status(404).send(JSON.stringify(failedResponse));
             }       
+        }
+        else
+        {
+            let failedResponse = { code : "001", message : "User with license not found"};
+            res.status(404).send(JSON.stringify(failedResponse));
+        }
+    } catch (err) {
+        let failedResponse = { code : "001", message : err.message};
+            res.status(500).send(JSON.stringify(failedResponse));
+    }
+});
+
+app.put('/UpdateDriverBooking',  async function (req, res) {
+    try {
+
+        let newData = req.body;
+        // find the user that matches the license number
+        let result =  await User.findOne({licenseNo : encryptData(req.body.licenseNo).encryptedData});
+        
+        if(result)
+        {   
+            result.examStatus = newData.resultOptions;
+            result.comment = newData.comment;      
+            await result.save();
+            let successfulResponse = { code : "001", message : "User Updated Successfully"};
+            res.status(200).send(JSON.stringify(successfulResponse));    
         }
         else
         {

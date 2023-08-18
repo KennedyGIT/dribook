@@ -14,9 +14,8 @@ document.getElementById("signup").addEventListener("click", function(event)
         {
            userName : document.getElementById("signupusername").value.toLowerCase(),
            emailAddress : document.getElementById("emailAddress").value,
-           userType : document.getElementById("usertype").value,
+           userType : document.getElementById("signupusertype").value,
            password : document.getElementById("signuppassword").value,
-           usertype : document.getElementById("usertype").value
         };
     
        
@@ -63,7 +62,7 @@ function clearSignupForm()
     document.getElementById("signupusername").value = "";
     document.getElementById("emailAddress").value = "";
     document.getElementById("usertype").value = "";
-    document.getElementById("usertype").value = "";
+    document.getElementById("signupusertype").value = "";
     document.getElementById("signuppassword").value = "";
     document.getElementById("rpassword").value = "";
 }
@@ -72,7 +71,7 @@ function validateSignUpInputs() {
 
     const username = document.getElementById("signupusername");
     const emailAddress = document.getElementById("emailAddress");
-    const usertype = document.getElementById("usertype");
+    const usertype = document.getElementById("signupusertype");
     const password = document.getElementById("signuppassword");
     const rpassword = document.getElementById("rpassword");
     
